@@ -25,12 +25,42 @@ export class PokemonService {
     );
   }
 
+  searchPokemonList(term : string): Observable<Pokemon[]>{
+
+    if(term.length <= 1){
+      return of([]);
+    }
+
+    return this.http.get<Pokemon[]>(`api/pokemons/?name=${term}`).pipe(
+      tap((pokemon) => this.log(pokemon)),
+      catchError((error) => this.handlerError(error, []))
+    );
+  }
+
   updatePokemon(pokemon : Pokemon) : Observable<null>{
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type': 'Application/json'})
     };
 
     return this.http.put('api/pokemons', pokemon, httpOptions).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handlerError(error, null))
+    )
+  }
+
+  deletePokemonById (pokemonId: number): Observable<null>{
+    return this.http.delete(`api/pokemons/${pokemonId}`).pipe(
+      tap((response) => this.log(response)),
+      catchError((error) => this.handlerError(error, null))
+    )
+  }
+
+  addPokemon(pokemon : Pokemon) : Observable<Pokemon>{
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type': 'Application/json'})
+    };
+
+    return this.http.post<Pokemon>('api/pokemons', pokemon, httpOptions).pipe(
       tap((response) => this.log(response)),
       catchError((error) => this.handlerError(error, null))
     )
