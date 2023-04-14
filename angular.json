@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-pokemon-app": {
+    "test": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -40,7 +40,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-pokemon-app",
+            "outputPath": "dist/test",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -87,10 +87,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-pokemon-app:build:production"
+              "browserTarget": "test:build:production"
             },
             "development": {
-              "browserTarget": "ng-pokemon-app:build:development"
+              "browserTarget": "test:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -98,10 +98,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-pokemon-app:build"
+            "browserTarget": "test:build"
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "3fc93d9c-0d61-4e6d-9157-c509e7b4c64b"
   }
 }
